@@ -1,4 +1,5 @@
 import org.apache.log4j.Logger;
+import service.OneWord;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -11,7 +12,7 @@ public class Sentence {
     Logger log = Logger.getLogger(getClass());
     Properties prop = getProp();
 
-    public String getSentence() {
+    private String getSentence() {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)); //TODO more line
         try {
             return reader.readLine();
@@ -21,7 +22,7 @@ public class Sentence {
         }
     }
 
-    public List<String> removeSpecialChars(String text) throws IOException {
+    List<String> removeSpecialChars(String text) throws IOException {
         String specialChars = prop.getProperty("special").replace(" ", "");
         List<String> specialsList = Arrays.asList(specialChars.split(""));
 
@@ -44,7 +45,7 @@ public class Sentence {
         return prop;
     }
 
-    public int countChars(List<String> texts) {
+    int countChars(List<String> texts) {
         int count = 0;
         for (String s : texts) {
             count += s.length();
@@ -52,7 +53,7 @@ public class Sentence {
         return count;
     }
 
-    public int countAllSpecials(String text) throws IOException {
+    int countAllSpecials(String text) throws IOException {
         String[] searchChars = arraySpecial();
         text = text.toLowerCase();
         String withoutSearchChars = text;
@@ -101,13 +102,18 @@ public class Sentence {
             response.add(word);
         }
         response.sort(Comparator.comparing(OneWord::getNumberOfSpecial));
-        StringBuilder sb = new StringBuilder().append("\n");
-        for (OneWord o : response) {
-            sb.append(o + "\n");
-        }
-        sb.append(
-                "TOTAL Frequency: " + part / 100 + " (" + searchCharsInSentence + "/" + allCharsInSentence + ")");
+        StringBuilder sb = build(searchCharsInSentence, allCharsInSentence, response, part);
         log.info(sb.toString());
         return sb.toString();
+    }
+
+    private StringBuilder build(int searchCharsInSentence, int allCharsInSentence, List<OneWord> response, double part) {
+        StringBuilder sb = new StringBuilder().append("\n");
+        for (OneWord o : response) {
+            sb.append(o).append("\n");
+        }
+        sb.append("TOTAL Frequency: ").append(part / 100).append(" (").append(searchCharsInSentence)
+                .append("/").append(allCharsInSentence).append(")");
+        return sb;
     }
 }

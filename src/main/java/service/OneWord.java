@@ -1,3 +1,5 @@
+package service;
+
 import java.util.Arrays;
 
 public class OneWord {
