@@ -4,7 +4,6 @@ public class OneWord {
 
     private String specialChars = "";
     private int lengthOfWord;
-    private int numberOfChars;
     private int numberOfSpecial;
     private int numberOfAllSpecial;
     private int numberOfAllChars;
@@ -42,14 +41,6 @@ public class OneWord {
 
     public void setLengthOfWord(int lengthOfWord) {
         this.lengthOfWord = lengthOfWord;
-    }
-
-    public int getNumberOfChars() {
-        return numberOfChars;
-    }
-
-    public void setNumberOfChars(int numberOfChars) {
-        this.numberOfChars = numberOfChars;
     }
 
     public int getNumberOfSpecial() {

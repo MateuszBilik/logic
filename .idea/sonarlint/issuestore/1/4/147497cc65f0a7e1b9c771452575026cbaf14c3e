@@ -1,0 +1,19 @@
+
+
+java:S11307"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(ˆóÑ™ÿÿÿÿÿ8úîì³•/
+U	java:S106l"9Replace this use of System.out or System.err by a logger.(ÆÀûı8çÿª¾•/
+
+java:S1130"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(÷ïõîùÿÿÿÿ8âæ¶•/
+W
+java:S1854L"5Remove this useless assignment to local variable "i".(åèÂ¡üÿÿÿÿ8À¡ª¾•/
+
+java:S1130A"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(îË±Óùÿÿÿÿ8—ó¾•/
+0
+java:S1220""Move this file to a named package.
+U	java:S106j"9Replace this use of System.out or System.err by a logger.(Ú“Üİ8¨Î ¿•/
+O
+java:S1135"2Complete the task associated to this TODO comment.(ïŸËÔ8á¯í°•/
+U
+java:S1117&"8Rename "prop" which hides the field declared at line 12.(Î×”Ç8úîì³•/
+j
+java:S2095("MUse try-with-resources or close this "FileInputStream" in a "finally" clause.(ªÖ¸¶8ºš×³•/

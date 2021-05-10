@@ -85,7 +85,7 @@ public class Sentence {
         return prop.getProperty("logic").toLowerCase().split("");
     }
 
-    public void printRapport() throws IOException {
+    public String printRapport() throws IOException {
         String sentence = getSentence();
         List<String> words = removeSpecialChars(sentence);
         int searchCharsInSentence = countAllSpecials(sentence);
@@ -102,10 +102,13 @@ public class Sentence {
             response.add(word);
         }
         response.sort(Comparator.comparing(OneWord::getLengthOfWord));
+        StringBuilder sb = new StringBuilder().append("\n");
         for (OneWord o : response) {
-            System.out.println(o);
+            sb.append(o + "\n");
         }
-        System.out.println(
+        sb.append(
                 "TOTAL Frequency: " + part / 100 + " (" + searchCharsInSentence + "/" + allCharsInSentence + ")");
+        log.info(sb.toString());
+        return sb.toString();
     }
 }
