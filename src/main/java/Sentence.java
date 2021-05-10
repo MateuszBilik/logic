@@ -62,25 +62,23 @@ public class Sentence {
         return text.length() - withoutSearchChars.length();
     }
 
-    private List<String> countSpecialsInWord(String text) throws IOException {
+    private OneWord countSpecialsInWord(String text) throws IOException {
         String[] searchChars = arraySpecial();
         text = text.toLowerCase();
         String withoutSpecialChars = text;
-        List<String> response = new ArrayList<>();
-        response.add(0, "");
+        OneWord word = new OneWord();
         for (String s : searchChars) {
+            word.setLengthOfWord(text.length());
             String withoutS = text;
             withoutS = withoutS.replaceAll(s, "");
             withoutSpecialChars = withoutSpecialChars.replaceAll(s, "");
-
             int i = 0;
             if ((i = text.length() - withoutS.length()) != 0) {
-                response.set(0, response.get(0) + s);
+                word.setSpecialChars(word.getSpecialChars() + s);
             }
         }
-        response.add(1, String.valueOf(text.length() - withoutSpecialChars.length()));
-//        System.out.println(response);
-        return response;
+        word.setNumberOfSpecial(text.length() - withoutSpecialChars.length());
+        return word;
     }
 
     private String[] arraySpecial() {
@@ -89,20 +87,25 @@ public class Sentence {
 
     public void printRapport() throws IOException {
         String sentence = getSentence();
-        int specialCharsInSentence = countAllSpecials(sentence);
         List<String> words = removeSpecialChars(sentence);
+        int searchCharsInSentence = countAllSpecials(sentence);
+        int allCharsInSentence = countChars(words);
+        List<OneWord> response = new ArrayList<>();
 
-        for (String s : words){
-            List<String> wordList = countSpecialsInWord(s);
-            double part = Integer.parseInt(wordList.get(1)) * 100d / specialCharsInSentence;
-            part = Math.round(part);
-            System.out.println(
-                    "("+ Arrays.asList(wordList.get(0).split("")).toString() +
-                    ", " + s.length() +
-                    ") = " + part/100 +
-                    " (" +  wordList.get(1) + "/" + specialCharsInSentence + ")" + "word: "+ s);
+        double part = searchCharsInSentence * 100d / allCharsInSentence;
+        part = Math.round(part);
+
+        for (String s : words) {
+            OneWord word = countSpecialsInWord(s);
+            word.setNumberOfAllSpecial(searchCharsInSentence);
+            word.setNumberOfAllChars(allCharsInSentence);
+            response.add(word);
         }
-
-
+        response.sort(Comparator.comparing(OneWord::getLengthOfWord));
+        for (OneWord o : response) {
+            System.out.println(o);
+        }
+        System.out.println(
+                "TOTAL Frequency: " + part / 100 + " (" + searchCharsInSentence + "/" + allCharsInSentence + ")");
     }
 }
