@@ -1,6 +1,7 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Properties;
 
 public class Sentence {
 
@@ -9,7 +10,17 @@ public class Sentence {
         return reader.readLine();
     }
 
-    private String removeSpecialChars(String text) {
+    public List<String> removeSpecialChars(String text) throws IOException {
+        Properties prop = new Properties();
+        prop.load(new FileInputStream("src/main/resources/config.properties"));
+        String specialChars = prop.getProperty("special").replace(" ", "");
+        List<String> specialsList = Arrays.asList(specialChars.split(""));
+        text.trim();
+        text.replaceAll("\\s+", " ");
 
+        for (String s : specialsList) {
+            text = text.replace(s, "");
+        }
+        return Arrays.asList(text.split(" "));
     }
 }
