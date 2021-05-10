@@ -63,5 +63,4 @@ public class OneWord {
                 lengthOfWord + ") = " + devicePart() +
                 " (" + numberOfSpecial + "/" + numberOfAllSpecial + ")";
     }
-
 }

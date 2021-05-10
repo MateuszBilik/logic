@@ -91,7 +91,6 @@ public class Sentence {
         int searchCharsInSentence = countAllSpecials(sentence);
         int allCharsInSentence = countChars(words);
         List<OneWord> response = new ArrayList<>();
-
         double part = searchCharsInSentence * 100d / allCharsInSentence;
         part = Math.round(part);
 
@@ -101,7 +100,7 @@ public class Sentence {
             word.setNumberOfAllChars(allCharsInSentence);
             response.add(word);
         }
-        response.sort(Comparator.comparing(OneWord::getLengthOfWord));
+        response.sort(Comparator.comparing(OneWord::getNumberOfSpecial));
         StringBuilder sb = new StringBuilder().append("\n");
         for (OneWord o : response) {
             sb.append(o + "\n");
